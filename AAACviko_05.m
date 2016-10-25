@@ -1,15 +1,16 @@
 clc
 clear
 figure(2)
-
+% Upravit al,bl,cl - vahy, porzi UI prednasku 4-16
 al=0.1;
-bl=0.01;
-cl=.01;
+bl=0.001;
+cl=0.001;
 
-n = 2;                                 % pocet premennych
+n = 2;                                  % pocet premennych
+max_rozsah = .1;
 rozsah=ones(1,n);               
-gennum = 50;                           % pocet generacii
-S=[zeros(1,n);1*rozsah];             % definicny obor
+gennum = 10;                           % pocet generacii
+S=[zeros(1,n);max_rozsah*rozsah];             % definicny obor
 
 POP = genrpop (30,S);
 % I = crit_fun(POP);
@@ -26,7 +27,7 @@ I = crit_fun2(POP,al,bl,cl);
         D = [B;C];                          % pracovna skupina (17)
 
         amp =[ones(1,3)];
-        D = muta(D,.15,amp*.08,S);            % aditivna mutacia
+        D = muta(D,.15,amp*(max_rozsah*0.1),S);            % aditivna mutacia
         D = mutx(D,.15,S);                  % nahodna/obycajna mutacia
 
         POP = [A;D];                        % Vysledna populacia
@@ -61,7 +62,6 @@ I = crit_fun2(POP,al,bl,cl);
     
     figure(2)
     plot(t,y,'g','Linewidth',1.5);hold on;
-    plot(t,w,'k');
     title('Prechodová charakteristika výstupu');
     legend('y','w');
    
